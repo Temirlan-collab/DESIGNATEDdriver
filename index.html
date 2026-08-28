@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Трезвый Водитель — Астана</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e1e1e;
+            line-height: 1.6;
+            background-color: #0b0b0b;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: rgba(11, 11, 11, 0.92);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.6);
+            padding: 12px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #f5c518;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #f5c518 !important;
+        }
+
+        .btn-outline {
+            border: 2px solid #f5c518;
+            padding: 8px 22px;
+            border-radius: 30px;
+            color: #f5c518 !important;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: #f5c518;
+            border-color: #f5c518;
+            color: #0b0b0b !important;
+        }
+
+        /* Языки */
+        .lang-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .lang-dropdown-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-dropdown-btn:hover {
+            background: rgba(245, 197, 24, 0.15);
+            border-color: #f5c518;
+        }
+
+        .lang-dropdown-btn .arrow {
+            font-size: 10px;
+            transition: transform 0.3s;
+        }
+
+        .lang-dropdown-btn.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .lang-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(20, 20, 20, 0.96);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 6px;
+            min-width: 120px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .lang-dropdown-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-dropdown-menu .lang-item {
+            display: block;
+            width: 100%;
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-family: inherit;
+            text-align: left;
+        }
+
+        .lang-dropdown-menu .lang-item:hover {
+            background: rgba(245, 197, 24, 0.12);
+            color: #f5c518;
+        }
+
+        .lang-dropdown-menu .lang-item.active {
+            background: #f5c518;
+            color: #0b0b0b;
+        }
+
+        .lang-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            display: none;
+        }
+
+        .lang-overlay.active {
+            display: block;
+        }
+
+        /* ГЕРОЙ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.60) 100%),
+                /* ВСТАВЬТЕ СЮДА ССЫЛКУ НА ФОТО ДЛЯ ГЛАВНОГО ЭКРАНА */
+                url('nur-sultan-kazakhstan.jpg') center/cover no-repeat;
+            z-index: 1;
+        }
+
+        .hero-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            z-index: 2;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C64.36,104.21,159.85,101.54,321.39,56.44Z' fill='%230b0b0b'/%3E%3C/svg%3E") no-repeat bottom;
+            background-size: 100% 100%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            background: rgba(245, 197, 24, 0.15);
+            backdrop-filter: blur(6px);
+            color: #f5c518;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(245, 197, 24, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #f5c518, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 600px;
+            margin: 0 auto 35px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            background: #f5c518;
+            color: #0b0b0b;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 20px rgba(245, 197, 24, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(245, 197, 24, 0.5);
+            background: #ffd700;
+        }
+
+        .btn-primary-outline {
+            background: transparent;
+            color: #ffffff;
+            padding: 16px 48px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 15px;
+        }
+
+        .btn-primary-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #f5c518;
+            transform: translateY(-3px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        /* Секции */
+        section {
+            background: #0b0b0b;
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #a0a0a0;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .grid-2 h2 {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #ffffff;
+        }
+
+        .grid-2 h2 span {
+            color: #f5c518;
+        }
+
+        .grid-2 p {
+            color: #b0b0b0;
+            margin: 20px 0 30px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #d0d0d0;
+        }
+
+        .feature-list i {
+            color: #f5c518;
+            font-size: 18px;
+            width: 24px;
+        }
+
+        .grid-2 img {
+            width: 100%;
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+            object-fit: cover;
+            height: 400px;
+        }
+
+        /* КАРТОЧКИ ТАРИФОВ */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px 0 80px;
+        }
+
+        .pricing-card {
+            background: #131313;
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid #2a2a2a;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #2a2a2a;
+            transition: background 0.4s;
+        }
+
+        .pricing-card::after {
+            content: '🚗';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 80px;
+            opacity: 0.04;
+            transform: rotate(-15deg);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-12px);
+            border-color: #f5c518;
+            box-shadow: 0 20px 50px rgba(245, 197, 24, 0.08);
+        }
+
+        .pricing-card:hover::before {
+            background: #f5c518;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid #f5c518;
+            box-shadow: 0 0 40px rgba(245, 197, 24, 0.06);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.04) translateY(-8px);
+        }
+
+        .pricing-card.popular::after {
+            content: var(--popular-text, '★ Популярный');
+            position: absolute;
+            top: 16px;
+            right: -30px;
+            background: #f5c518;
+            color: #0b0b0b;
+            padding: 4px 30px;
+            font-size: 11px;
+            font-weight: 700;
+            transform: rotate(45deg);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card .plan {
+            font-weight: 800;
+            color: #f5c518;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 10px 0 5px;
+            color: #ffffff;
+        }
+
+        .pricing-card .price small {
+            font-size: 18px;
+            font-weight: 500;
+            color: #888;
+        }
+
+        .pricing-card .price-desc {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 25px 0 30px;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #222;
+            color: #c0c0c0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+        }
+
+        .pricing-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-card ul li i {
+            color: #f5c518;
+            width: 20px;
+            font-size: 14px;
+        }
+
+        .btn-card {
+            background: transparent;
+            border: 2px solid #f5c518;
+            color: #f5c518;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            display: inline-block;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-card:hover {
+            background: #f5c518;
+            color: #0b0b0b;
+            box-shadow: 0 4px 25px rgba(245, 197, 24, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-card.primary {
+            background: #f5c518;
+            color: #0b0b0b;
+        }
+
+        .btn-card.primary:hover {
+            background: #ffd700;
+            border-color: #ffd700;
+        }
+
+        /* СТАТИСТИКА */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            background: #131313;
+            padding: 50px 30px;
+            border-radius: 30px;
+            margin: 40px 0 80px;
+            border: 1px solid #2a2a2a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '🏁';
+            position: absolute;
+            bottom: -20px;
+            right: -10px;
+            font-size: 120px;
+            opacity: 0.03;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            border-right: 1px solid #252525;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-item .number {
+            font-size: 44px;
+            font-weight: 800;
+            color: #f5c518;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .stat-item .number i {
+            font-size: 28px;
+            margin-right: 6px;
+            color: #f5c518;
+        }
+
+        .stat-item .label {
+            color: #a0a0a0;
+            font-weight: 500;
+            font-size: 15px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Отзывы */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0 80px;
+        }
+
+        .testimonial {
+            background: #131313;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-5px);
+            border-color: #f5c518;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            color: #d0d0d0;
+            margin-bottom: 20px;
+        }
+
+        .testimonial .author {
+            font-weight: 700;
+            color: #f5c518;
+        }
+
+        .testimonial .role {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* CTA */
+        .cta {
+            background: linear-gradient(135deg, #1a1a1a, #0b0b0b);
+            border: 1px solid #f5c518;
+            color: #fff;
+            padding: 60px 30px;
+            border-radius: 30px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .cta .btn-primary {
+            background: #f5c518;
+            color: #0b0b0b;
+            margin-top: 20px;
+        }
+
+        .cta .btn-primary:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        /* FAQ */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0 80px;
+        }
+
+        .faq-item {
+            background: #131313;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            transform: translateX(5px);
+            border-color: #f5c518;
+        }
+
+        .faq-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #f5c518;
+        }
+
+        .faq-item p {
+            color: #b0b0b0;
+        }
+
+        /* Анимации */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-up {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scale-up.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* Футер */
+        footer {
+            background: #0b0b0b;
+            border-top: 1px solid #2a2a2a;
+            color: #a0a0a0;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        footer .logo {
+            color: #fff;
+        }
+
+        footer .social-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        footer .social-links a {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 22px;
+        }
+
+        footer .social-links a:hover {
+            color: #f5c518;
+        }
+
+        /* Кнопки WhatsApp / Позвонить */
+        .btn-wa {
+            background: #25D366;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .btn-wa:hover {
+            background: #1ebe5a;
+            transform: scale(1.03);
+            color: #fff;
+        }
+        .btn-call {
+            background: #1a1a1a;
+            color: #f5c518;
+            border: 2px solid #f5c518;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        .btn-call:hover {
+            background: #f5c518;
+            color: #0b0b0b;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 992px) {
+            .grid-2, .pricing-grid, .testimonials, .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            .stats .stat-item {
+                border-right: none;
+            }
+            .hero h1 {
+                font-size: 40px;
+            }
+            .hero-wave {
+                height: 80px;
+            }
+            .grid-2 img {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 10px;
+            }
+            nav {
+                justify-content: center;
+                gap: 5px;
+            }
+            nav a {
+                font-size: 13px;
+                padding: 3px 8px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero {
+                padding-top: 180px;
+                min-height: 90vh;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary-outline {
+                margin-left: 0;
+            }
+            .hero-wave {
+                height: 50px;
+            }
+            .lang-dropdown {
+                margin-left: 5px;
+            }
+            .lang-dropdown-btn {
+                font-size: 11px;
+                padding: 4px 12px;
+            }
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                padding: 30px 15px;
+            }
+            .stat-item .number {
+                font-size: 32px;
+            }
+            .grid-2 img {
+                height: 200px;
+            }
+            footer .container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header id="header">
+        <div class="container header-inner">
+            <div class="logo">DESIGNATED<span>driver</span></div>
+            <nav>
+                <a href="#hero">Главная</a>
+                <a href="#services">Услуги</a>
+                <a href="#pricing">Тарифы</a>
+                <a href="#faq">FAQ</a>
+                <a href="#" class="btn-outline">Заказать</a>
+                <div class="lang-dropdown">
+                    <button class="lang-dropdown-btn" id="langToggle">
+                        <span id="currentLangLabel">🇷🇺 РУС</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="lang-dropdown-menu" id="langMenu">
+                        <button class="lang-item active" data-lang="ru"><span class="flag">🇷🇺</span> Русский</button>
+                        <button class="lang-item" data-lang="kz"><span class="flag">🇰🇿</span> Қазақша</button>
+                        <button class="lang-item" data-lang="en"><span class="flag">🇬🇧</span> English</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="lang-overlay" id="langOverlay"></div>
+
+    <!-- ГЕРОЙ с фото -->
+    <section class="hero" id="hero">
+        <div class="hero-background"></div>
+        <div class="hero-wave"></div>
+        <div class="hero-content">
+            <div class="badge fade-up visible">Безопасность на дороге</div>
+            <h1 class="fade-up visible delay-1">Трезвый <span>Водитель</span> Астана</h1>
+            <p class="fade-up visible delay-2">Профессиональный перегон авто, помощь на дороге, трезвый водитель — 24/7 по городу и области.</p>
+            <div class="hero-buttons fade-up visible delay-3">
+                <a href="#pricing" class="btn-primary">Заказать</a>
+                <a href="#services" class="btn-primary-outline">Услуги</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- УСЛУГИ с фото -->
+    <section class="container" id="services" style="padding-top: 60px;">
+        <div class="grid-2">
+            <div class="fade-left">
+                <h2>Мы занимаемся <span>авто-помощью</span> в Астане</h2>
+                <p>Мы предоставляем полный спектр услуг для автовладельцев: трезвый водитель, перегон автомобилей, такси в аэропорт и на вокзал. Работаем круглосуточно, быстро и надёжно. Наши водители имеют большой стаж, знают город и область. Мы ценим ваше время и безопасность.</p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> <span>Трезвый водитель — от 5000 ₸</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Перегон авто — от 5000 ₸</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Такси аэропорт/вокзал — от 3500 ₸</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Круглосуточная поддержка 24/7</span></li>
+                    <li><i class="fas fa-check-circle"></i> <span>Фиксированные цены без скрытых платежей</span></li>
+                </ul>
+                <div class="action-buttons">
+                    <a href="https://wa.me/77772062488?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D1%83%3A" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Заказ WhatsApp</a>
+                    <a href="tel:+77772062488" class="btn-call"><i class="fas fa-phone-alt"></i> Позвонить</a>
+                </div>
+            </div>
+            <div class="fade-right">
+                <!-- ВСТАВЬТЕ СЮДА ССЫЛКУ НА ФОТО ДЛЯ РАЗДЕЛА УСЛУГ -->
+                <img src="Chauffeur_exchanging_car_keys_2K_202608281708 (1).jpeg" alt="Автомобиль на дороге">
+            </div>
+        </div>
+    </section>
+
+    <!-- ТАРИФЫ -->
+    <section class="container" id="pricing">
+        <h2 class="section-title fade-up">Тарифы и цены</h2>
+        <p class="section-sub fade-up delay-1">Выберите нужную услугу. Работаем по городу и пригороду. Все цены указаны в тенге.</p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card scale-up delay-1">
+                <div class="plan">Трезвый водитель</div>
+                <div class="price">5 000 <small>₸</small></div>
+                <div class="price-desc">от 30 минут подача</div>
+                <ul>
+                    <li><i class="fas fa-clock"></i> Подача в течение 30 мин</li>
+                    <li><i class="fas fa-map-marker-alt"></i> По городу и области</li>
+                    <li><i class="fas fa-user-check"></i> Опытные водители</li>
+                    <li><i class="fas fa-clock"></i> Круглосуточно 24/7</li>
+                </ul>
+                <a href="https://wa.me/77772062488?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%A2%D1%80%D0%B5%D0%B7%D0%B2%D0%BE%D0%B3%D0%BE%20%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8F" target="_blank" class="btn-card">Заказать</a>
+            </div>
+
+            <div class="pricing-card popular scale-up delay-2">
+                <div class="plan">Перегон авто</div>
+                <div class="price">5 000 <small>₸</small></div>
+                <div class="price-desc">фиксированная цена</div>
+                <ul>
+                    <li><i class="fas fa-shield-alt"></i> Страховка</li>
+                    <li><i class="fas fa-route"></i> В любую точку</li>
+                    <li><i class="fas fa-people-arrows"></i> Сопровождение</li>
+                    <li><i class="fas fa-check-circle"></i> Фиксированная цена</li>
+                </ul>
+                <a href="https://wa.me/77772062488?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%9F%D0%B5%D1%80%D0%B5%D0%B3%D0%BE%D0%BD%20%D0%B0%D0%B2%D1%82%D0%BE" target="_blank" class="btn-card primary">Заказать</a>
+            </div>
+
+            <div class="pricing-card scale-up delay-3">
+                <div class="plan">Такси аэропорт/вокзал</div>
+                <div class="price">3 500 <small>₸</small></div>
+                <div class="price-desc">встреча с табличкой</div>
+                <ul>
+                    <li><i class="fas fa-sign"></i> Встреча с табличкой</li>
+                    <li><i class="fas fa-suitcase"></i> Багаж включён</li>
+                    <li><i class="fas fa-car"></i> Комфортный авто</li>
+                    <li><i class="fas fa-hourglass-half"></i> Бесплатное ожидание</li>
+                </ul>
+                <a href="https://wa.me/77772062488?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%A2%D0%B0%D0%BA%D1%81%D0%B8%20%D0%B2%20%D0%B0%D1%8D%D1%80%D0%BE%D0%BF%D0%BE%D1%80%D1%82" target="_blank" class="btn-card">Заказать</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: -30px; margin-bottom: 40px;">
+            <div class="action-buttons">
+                <a href="https://wa.me/77772062488?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D1%83%3A" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> Заказать через WhatsApp</a>
+                <a href="tel:+77772062488" class="btn-call"><i class="fas fa-phone-alt"></i> Позвонить</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- СТАТИСТИКА -->
+    <section class="container">
+        <div class="stats">
+            <div class="stat-item fade-up delay-1">
+                <span class="number"><i class="fas fa-users"></i> 250+</span>
+                <span class="label">Клиенты</span>
+            </div>
+            <div class="stat-item fade-up delay-2">
+                <span class="number"><i class="fas fa-car"></i> 120+</span>
+                <span class="label">Перегонов</span>
+            </div>
+            <div class="stat-item fade-up delay-3">
+                <span class="number"><i class="fas fa-star"></i> 50+</span>
+                <span class="label">Отзывов</span>
+            </div>
+            <div class="stat-item fade-up delay-4">
+                <span class="number"><i class="fas fa-trophy"></i> 15</span>
+                <span class="label">Награды</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ОТЗЫВЫ -->
+    <section class="container">
+        <h2 class="section-title fade-up">Отзывы клиентов</h2>
+        <p class="section-sub fade-up delay-1">Реальные отзывы наших клиентов о работе трезвого водителя и перегоне авто.</p>
+
+        <div class="testimonials">
+            <div class="testimonial scale-up delay-1">
+                <p>"Отличная работа! Заказывал трезвого водителя после корпоратива. Приехал быстро, довёз аккуратно. Рекомендую!"</p>
+                <div class="author">Арман Ж.</div>
+                <div class="role">Бизнесмен</div>
+            </div>
+            <div class="testimonial scale-up delay-2">
+                <p>"Перегонял машину из Астаны в Караганду. Всё чётко, без проблем. Спасибо за надёжность!"</p>
+                <div class="author">Сергей П.</div>
+                <div class="role">Автолюбитель</div>
+            </div>
+            <div class="testimonial scale-up delay-3">
+                <p>"Заказывал такси в аэропорт. Водитель был на месте, помог с багажом. Очень удобно и пунктуально."</p>
+                <div class="author">Айгуль К.</div>
+                <div class="role">Менеджер</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container">
+        <div class="cta fade-up">
+            <h2>Не рискуйте — вызовите трезвого водителя!</h2>
+            <p>Мы работаем 24/7. Быстрый приезд, фиксированные цены, опытные водители. Позаботьтесь о своей безопасности и безопасности окружающих.</p>
+            <a href="https://wa.me/77772062488?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D1%83" target="_blank" class="btn-primary">Заказать сейчас</a>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="container" id="faq">
+        <h2 class="section-title fade-up">Часто задаваемые вопросы</h2>
+        <p class="section-sub fade-up delay-1">Ответы на самые популярные вопросы о наших услугах.</p>
+
+        <div class="faq-grid">
+            <div class="faq-item fade-up delay-1">
+                <h4>Как быстро вы приезжаете?</h4>
+                <p>В среднем 20–30 минут по городу. В зависимости от загруженности дорог.</p>
+            </div>
+            <div class="faq-item fade-up delay-2">
+                <h4>Работаете ли вы за городом?</h4>
+                <p>Да, мы работаем по всей Астане и пригороду. Цена обсуждается индивидуально.</p>
+            </div>
+            <div class="faq-item fade-up delay-3">
+                <h4>Какие машины у вас?</h4>
+                <p>У нас комфортные автомобили бизнес-класса и эконом-класса. Выбирайте под свой запрос.</p>
+            </div>
+            <div class="faq-item fade-up delay-4">
+                <h4>Как оплатить?</h4>
+                <p>Наличными или переводом на карту. Также принимаем оплату через Kaspi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container">
+            <div class="logo">DESIGNATED<span>driver</span></div>
+            <div class="social-links">
+                <!-- Instagram -->
+                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <!-- WhatsApp -->
+                <a href="https://wa.me/77772062488" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Переключение языков
+        const langToggle = document.getElementById('langToggle');
+        const langMenu = document.getElementById('langMenu');
+        const langOverlay = document.getElementById('langOverlay');
+        const currentLangLabel = document.getElementById('currentLangLabel');
+
+        // Переводы
+        const translations = {
+            ru: {
+                hero_badge: 'Безопасность на дороге',
+                hero_title: 'Трезвый <span>Водитель</span> Астана',
+                hero_desc: 'Профессиональный перегон авто, помощь на дороге, трезвый водитель — 24/7 по городу и области.',
+                hero_btn1: 'Заказать',
+                hero_btn2: 'Услуги',
+                services_title: 'Мы занимаемся <span>авто-помощью</span> в Астане',
+                services_desc: 'Мы предоставляем полный спектр услуг для автовладельцев: трезвый водитель, перегон автомобилей, такси в аэропорт и на вокзал. Работаем круглосуточно, быстро и надёжно. Наши водители имеют большой стаж, знают город и область. Мы ценим ваше время и безопасность.',
+                feature1: 'Трезвый водитель — от 5000 ₸',
+                feature2: 'Перегон авто — от 5000 ₸',
+                feature3: 'Такси аэропорт/вокзал — от 3500 ₸',
+                feature4: 'Круглосуточная поддержка 24/7',
+                feature5: 'Фиксированные цены без скрытых платежей',
+                pricing_title: 'Тарифы и цены',
+                pricing_sub: 'Выберите нужную услугу. Работаем по городу и пригороду. Все цены указаны в тенге.',
+                plan1: 'Трезвый водитель',
+                plan2: 'Перегон авто',
+                plan3: 'Такси аэропорт/вокзал',
+                price1: '5 000 <small>₸</small>',
+                price2: '5 000 <small>₸</small>',
+                price3: '3 500 <small>₸</small>',
+                popular: '★ Популярный',
+                btn_order: 'Заказать',
+                stats_title: 'Клиенты',
+                stats_title2: 'Перегонов',
+                stats_title3: 'Отзывов',
+                stats_title4: 'Награды',
+                testimonials_title: 'Отзывы клиентов',
+                testimonials_sub: 'Реальные отзывы наших клиентов о работе трезвого водителя и перегоне авто.',
+                testimonial1: '"Отличная работа! Заказывал трезвого водителя после корпоратива. Приехал быстро, довёз аккуратно. Рекомендую!"',
+                author1: 'Арман Ж.',
+                role1: 'Бизнесмен',
+                testimonial2: '"Перегонял машину из Астаны в Караганду. Всё чётко, без проблем. Спасибо за надёжность!"',
+                author2: 'Сергей П.',
+                role2: 'Автолюбитель',
+                testimonial3: '"Заказывал такси в аэропорт. Водитель был на месте, помог с багажом. Очень удобно и пунктуально."',
+                author3: 'Айгуль К.',
+                role3: 'Менеджер',
+                cta_title: 'Не рискуйте — вызовите трезвого водителя!',
+                cta_desc: 'Мы работаем 24/7. Быстрый приезд, фиксированные цены, опытные водители. Позаботьтесь о своей безопасности и безопасности окружающих.',
+                cta_btn: 'Заказать сейчас',
+                faq_title: 'Часто задаваемые вопросы',
+                faq_sub: 'Ответы на самые популярные вопросы о наших услугах.',
+                faq_q1: 'Как быстро вы приезжаете?',
+                faq_a1: 'В среднем 20–30 минут по городу. В зависимости от загруженности дорог.',
+                faq_q2: 'Работаете ли вы за городом?',
+                faq_a2: 'Да, мы работаем по всей Астане и пригороду. Цена обсуждается индивидуально.',
+                faq_q3: 'Какие машины у вас?',
+                faq_a3: 'У нас комфортные автомобили бизнес-класса и эконом-класса. Выбирайте под свой запрос.',
+                faq_q4: 'Как оплатить?',
+                faq_a4: 'Наличными или переводом на карту. Также принимаем оплату через Kaspi.'
+            },
+            kz: {
+                hero_badge: 'Жолда қауіпсіздік',
+                hero_title: 'Ақылды <span>Жүргізуші</span> Астана',
+                hero_desc: 'Кәсіби автокөлік жеткізу, жолда көмек, ақылды жүргізуші — тәулік бойы қала бойынша және облыста.',
+                hero_btn1: 'Тапсырыс',
+                hero_btn2: 'Қызметтер',
+                services_title: 'Біз Астанада <span>авто-көмекпен</span> айналысамыз',
+                services_desc: 'Біз автокөлік иелеріне қызметтердің толық спектрін ұсынамыз: ақылды жүргізуші, автокөлікті жеткізу, әуежайға және вокзалға такси. Тәулік бойы, жылдам және сенімді жұмыс істейміз.',
+                feature1: 'Ақылды жүргізуші — 5000 ₸-ден',
+                feature2: 'Автокөлікті жеткізу — 5000 ₸-ден',
+                feature3: 'Әуежай/вокзал такси — 3500 ₸-ден',
+                feature4: 'Тәулік бойы қолдау 24/7',
+                feature5: 'Фиксирленген бағалар, жасырын төлемдер жоқ',
+                pricing_title: 'Бағалар мен тарифтер',
+                pricing_sub: 'Қажетті қызметті таңдаңыз. Қала бойынша және қала маңында жұмыс істейміз. Барлық бағалар теңгемен көрсетілген.',
+                plan1: 'Ақылды жүргізуші',
+                plan2: 'Автокөлікті жеткізу',
+                plan3: 'Әуежай/вокзал такси',
+                price1: '5 000 <small>₸</small>',
+                price2: '5 000 <small>₸</small>',
+                price3: '3 500 <small>₸</small>',
+                popular: '★ Танымал',
+                btn_order: 'Тапсырыс',
+                stats_title: 'Клиенттер',
+                stats_title2: 'Жеткізулер',
+                stats_title3: 'Пікірлер',
+                stats_title4: 'Марапаттар',
+                testimonials_title: 'Клиенттердің пікірлері',
+                testimonials_sub: 'Ақылды жүргізуші мен автокөлікті жеткізу туралы нақты пікірлер.',
+                testimonial1: '"Керемет жұмыс! Корпоративтен кейін ақылды жүргізушіге тапсырыс бердім. Тез келді, абайлап жеткізді. Ұсынамын!"',
+                author1: 'Арман Ж.',
+                role1: 'Бизнесмен',
+                testimonial2: '"Көлікті Астанадан Қарағандыға жеткізді. Барлығы анық, проблемасыз. Сенімділік үшін рахмет!"',
+                author2: 'Сергей П.',
+                role2: 'Автәуесқой',
+                testimonial3: '"Әуежайға таксиге тапсырыс бердім. Жүргізуші орнында болды, багажға көмектесті. Өте ыңғайлы және уақытылы."',
+                author3: 'Айгүл К.',
+                role3: 'Менеджер',
+                cta_title: 'Тәуекел етпеңіз — ақылды жүргізушіні шақырыңыз!',
+                cta_desc: 'Біз тәулік бойы жұмыс істейміз. Тез келу, фиксирленген бағалар, тәжірибелі жүргізушілер. Өзіңіздің және айналаңыздағылардың қауіпсіздігін ойлаңыз.',
+                cta_btn: 'Қазір тапсырыс',
+                faq_title: 'Жиі қойылатын сұрақтар',
+                faq_sub: 'Біздің қызметтер туралы ең танымал сұрақтарға жауаптар.',
+                faq_q1: 'Қаншалықты тез келесіздер?',
+                faq_a1: 'Қала бойынша орта есеппен 20–30 минут. Жолдың жүктемесіне байланысты.',
+                faq_q2: 'Қала сыртында жұмыс істейсіз бе?',
+                faq_a2: 'Иә, біз Астана және қала маңы бойынша жұмыс істейміз. Бағасы жеке талқыланады.',
+                faq_q3: 'Қандай көліктеріңіз бар?',
+                faq_a3: 'Бізде бизнес-класс және эконом-класс ыңғайлы көліктер бар. Сұранысыңызға сай таңдаңыз.',
+                faq_q4: 'Қалай төлеуге болады?',
+                faq_a4: 'Қолма-қол немесе картаға аударым. Kaspi арқылы төлемді де қабылдаймыз.'
+            },
+            en: {
+                hero_badge: 'Road safety',
+                hero_title: 'Sober <span>Driver</span> Astana',
+                hero_desc: 'Professional car relocation, roadside assistance, sober driver — 24/7 in the city and region.',
+                hero_btn1: 'Order',
+                hero_btn2: 'Services',
+                services_title: 'We provide <span>auto assistance</span> in Astana',
+                services_desc: 'We offer a full range of services for car owners: sober driver, car relocation, taxi to airport and railway station. We work 24/7, fast and reliable.',
+                feature1: 'Sober driver — from 5000 ₸',
+                feature2: 'Car relocation — from 5000 ₸',
+                feature3: 'Airport/station taxi — from 3500 ₸',
+                feature4: '24/7 support',
+                feature5: 'Fixed prices, no hidden fees',
+                pricing_title: 'Pricing & tariffs',
+                pricing_sub: 'Choose the service you need. We work in the city and suburbs. All prices are in tenge.',
+                plan1: 'Sober driver',
+                plan2: 'Car relocation',
+                plan3: 'Airport/station taxi',
+                price1: '5 000 <small>₸</small>',
+                price2: '5 000 <small>₸</small>',
+                price3: '3 500 <small>₸</small>',
+                popular: '★ Popular',
+                btn_order: 'Order',
+                stats_title: 'Customers',
+                stats_title2: 'Relocations',
+                stats_title3: 'Reviews',
+                stats_title4: 'Awards',
+                testimonials_title: 'Testimonials',
+                testimonials_sub: 'Real reviews from our clients about sober driver and car relocation.',
+                testimonial1: '"Great service! Ordered a sober driver after a corporate party. Arrived quickly, drove carefully. Recommend!"',
+                author1: 'Arman J.',
+                role1: 'Businessman',
+                testimonial2: '"Relocated car from Astana to Karaganda. Everything clear, no issues. Thanks for reliability!"',
+                author2: 'Sergey P.',
+                role2: 'Car enthusiast',
+                testimonial3: '"Ordered taxi to the airport. The driver was on time, helped with luggage. Very convenient and punctual."',
+                author3: 'Aigul K.',
+                role3: 'Manager',
+                cta_title: 'Don\'t risk — call a sober driver!',
+                cta_desc: 'We work 24/7. Fast arrival, fixed prices, experienced drivers. Take care of your safety and others.',
+                cta_btn: 'Order now',
+                faq_title: 'F.A.Q.',
+                faq_sub: 'Answers to the most popular questions about our services.',
+                faq_q1: 'How fast do you arrive?',
+                faq_a1: 'On average 20–30 minutes in the city. Depending on traffic.',
+                faq_q2: 'Do you work outside the city?',
+                faq_a2: 'Yes, we work throughout Astana and suburbs. Price is discussed individually.',
+                faq_q3: 'What cars do you have?',
+                faq_a3: 'We have comfortable business-class and economy-class cars. Choose according to your request.',
+                faq_q4: 'How to pay?',
+                faq_a4: 'Cash or card transfer. We also accept Kaspi payments.'
+            }
+        };
+
+        let currentLang = 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            
+            // Обновляем текст на странице
+            document.querySelector('.hero .badge').textContent = t.hero_badge;
+            document.querySelector('.hero h1').innerHTML = t.hero_title;
+            document.querySelector('.hero p').textContent = t.hero_desc;
+            document.querySelectorAll('.hero-buttons .btn-primary')[0].textContent = t.hero_btn1;
+            document.querySelectorAll('.hero-buttons .btn-primary-outline')[0].textContent = t.hero_btn2;
+            
+            document.querySelector('#services h2').innerHTML = t.services_title;
+            document.querySelector('#services .grid-2 p').textContent = t.services_desc;
+            const features = document.querySelectorAll('#services .feature-list li span');
+            features[0].textContent = t.feature1;
+            features[1].textContent = t.feature2;
+            features[2].textContent = t.feature3;
+            features[3].textContent = t.feature4;
+            features[4].textContent = t.feature5;
+            
+            document.querySelector('#pricing .section-title').textContent = t.pricing_title;
+            document.querySelector('#pricing .section-sub').textContent = t.pricing_sub;
+            
+            const cards = document.querySelectorAll('.pricing-card');
+            cards[0].querySelector('.plan').textContent = t.plan1;
+            cards[0].querySelector('.price').innerHTML = t.price1;
+            cards[0].querySelector('.btn-card').textContent = t.btn_order;
+            
+            cards[1].querySelector('.plan').textContent = t.plan2;
+            cards[1].querySelector('.price').innerHTML = t.price2;
+            cards[1].querySelector('.btn-card').textContent = t.btn_order;
+            cards[1].style.setProperty('--popular-text', `"${t.popular}"`);
+            
+            cards[2].querySelector('.plan').textContent = t.plan3;
+            cards[2].querySelector('.price').innerHTML = t.price3;
+            cards[2].querySelector('.btn-card').textContent = t.btn_order;
+            
+            const statLabels = document.querySelectorAll('.stat-item .label');
+            statLabels[0].textContent = t.stats_title;
+            statLabels[1].textContent = t.stats_title2;
+            statLabels[2].textContent = t.stats_title3;
+            statLabels[3].textContent = t.stats_title4;
+            
+            document.querySelector('.testimonials-title').textContent = t.testimonials_title;
+            document.querySelector('.testimonials-sub').textContent = t.testimonials_sub;
+            
+            const testimonials = document.querySelectorAll('.testimonial');
+            testimonials[0].querySelector('p').textContent = t.testimonial1;
+            testimonials[0].querySelector('.author').textContent = t.author1;
+            testimonials[0].querySelector('.role').textContent = t.role1;
+            testimonials[1].querySelector('p').textContent = t.testimonial2;
+            testimonials[1].querySelector('.author').textContent = t.author2;
+            testimonials[1].querySelector('.role').textContent = t.role2;
+            testimonials[2].querySelector('p').textContent = t.testimonial3;
+            testimonials[2].querySelector('.author').textContent = t.author3;
+            testimonials[2].querySelector('.role').textContent = t.role3;
+            
+            document.querySelector('.cta h2').textContent = t.cta_title;
+            document.querySelector('.cta p').textContent = t.cta_desc;
+            document.querySelector('.cta .btn-primary').textContent = t.cta_btn;
+            
+            document.querySelector('#faq .section-title').textContent = t.faq_title;
+            document.querySelector('#faq .section-sub').textContent = t.faq_sub;
+            
+            const faqs = document.querySelectorAll('.faq-item');
+            faqs[0].querySelector('h4').textContent = t.faq_q1;
+            faqs[0].querySelector('p').textContent = t.faq_a1;
+            faqs[1].querySelector('h4').textContent = t.faq_q2;
+            faqs[1].querySelector('p').textContent = t.faq_a2;
+            faqs[2].querySelector('h4').textContent = t.faq_q3;
+            faqs[2].querySelector('p').textContent = t.faq_a3;
+            faqs[3].querySelector('h4').textContent = t.faq_q4;
+            faqs[3].querySelector('p').textContent = t.faq_a4;
+            
+            // Обновляем кнопку языка
+            const labels = { ru: '🇷🇺 РУС', kz: '🇰🇿 ҚАЗ', en: '🇬🇧 ENG' };
+            currentLangLabel.textContent = labels[lang];
+            
+            // Обновляем активный пункт меню
+            document.querySelectorAll('.lang-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.lang === lang);
+            });
+            
+            closeMenu();
+        }
+
+        function toggleMenu(e) {
+            e.stopPropagation();
+            langMenu.classList.toggle('open');
+            langToggle.classList.toggle('open');
+            langOverlay.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            langMenu.classList.remove('open');
+            langToggle.classList.remove('open');
+            langOverlay.classList.remove('active');
+        }
+
+        langToggle.addEventListener('click', toggleMenu);
+        langOverlay.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+        document.querySelectorAll('.lang-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                setLanguage(this.dataset.lang);
+            });
+        });
+
+        // Анимации при скролле
+        const animatedElements = document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-up');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Эффект шапки
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Плавная навигация
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Инициализация
+        setLanguage('ru');
+    </script>
+
+</body>
+</html>
